@@ -23,7 +23,7 @@ public class PlayerMove : MonoBehaviour
         if (h == 0 && v == 0) return;
         if(playerBasic.IsRoundAviable())
         {
-            playerBasic._Move();
+            playerBasic._Move(h, v);
             transform.DOMove(new Vector3(transform.position.x + h, transform.position.y, transform.position.z + v), playerBasic.GameSpeed).SetEase(Ease.InQuint);
             Vector3 RotateMotion = new Vector3(90 * v, 0, 90 * -h);
             transform.DORotate(RotateMotion, playerBasic.GameSpeed, RotateMode.WorldAxisAdd).SetEase(Ease.InQuint);

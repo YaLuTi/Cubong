@@ -13,7 +13,7 @@ public class PlayerWeaponController : MonoBehaviour
     void Start()
     {
         playerBasic = GetComponent<PlayerBasic>();
-        playerBasic.OnVariableChange += SetValue;
+        playerBasic.OnMove += SetValue;
         weapons.AddRange(GetComponentsInChildren<WeaponBasic>());
     }
 
@@ -23,9 +23,9 @@ public class PlayerWeaponController : MonoBehaviour
         
     }
 
-    void SetValue(int count)
+    void SetValue()
     {
-        MoveCount = count;
+        MoveCount = playerBasic.MoveCount;
         for(int i = 0; i < weapons.Count; i++)
         {
             weapons[i].Shoot();

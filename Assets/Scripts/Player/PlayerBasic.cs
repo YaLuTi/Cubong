@@ -15,12 +15,14 @@ public class PlayerBasic : MonoBehaviour
     float RoundCoolDown; // Player flip once = One Round   Set to avoid round over too fast
     float _RoundCoolDownValue;
 
+    // Game Value
+    public int MoveCount { get; private set; }
+    public Vector2 _Positon { get; private set; }
     [Header("Game Value")]
-    public int MoveCount;
     public bool IsOnEvent = false; // Maybe need enum to know which kind of event?
 
-    public delegate void OnVariableChangeDelegate(int newVal);
-    public event OnVariableChangeDelegate OnVariableChange;
+    public delegate void OnVariableChangeDelegate();
+    public event OnVariableChangeDelegate OnMove;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +31,7 @@ public class PlayerBasic : MonoBehaviour
         RoundCoolDown = 0;
         MoveCount = 0;
         _Input = GetComponent<PlayerInput>();
+        _Positon = new Vector2(5, 1);
     }
 
     // Update is called once per frame
@@ -47,8 +50,9 @@ public class PlayerBasic : MonoBehaviour
         return false;
     }
 
-    public void _Move()
+    public void _Move(float h, float v)
     {
+        _Positon += new Vector2(h, v);
         StartCoroutine(Delay_Move());
     }
 
@@ -64,16 +68,10 @@ public class PlayerBasic : MonoBehaviour
         _Input.enabled = true;
     }
 
-    void AddMoveValue()
-    {
-        MoveCount++;
-        OnVariableChange(MoveCount);
-    }
-
     IEnumerator Delay_Move()
     {
         yield return new WaitForSecondsRealtime(GameSpeed);
-        AddMoveValue();
-        yield return 0;
+        MoveCount++;
+        OnMove();
     }
 }
