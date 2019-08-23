@@ -16,10 +16,14 @@ public class Weapon_Pistol : WeaponBasic
         
     }
 
-    public override void Shoot()
+    public override bool Shoot()
     {
-        base.Shoot();
+        if (!base.Shoot())
+        {
+            return false;
+        }
         GameObject b = Instantiate(Bullet, GunMuzzle.position, GunMuzzle.rotation);
         b.GetComponent<Bullet_Basic>().SetSpawner(transform.parent.gameObject);
+        return true;
     }
 }

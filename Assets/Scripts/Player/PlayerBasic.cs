@@ -20,6 +20,7 @@ public class PlayerBasic : MonoBehaviour
     public Vector2 _Positon { get; private set; }
     [Header("Game Value")]
     public bool IsOnEvent = false; // Maybe need enum to know which kind of event?
+    Vector3 ActualAngle;
 
     public delegate void OnVariableChangeDelegate();
     public event OnVariableChangeDelegate OnMove;

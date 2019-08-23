@@ -4,19 +4,27 @@ using UnityEngine;
 
 public class StageManager : MonoBehaviour
 {
-    // Start is called before the first frame update
     PlayerBasic playerBasic;
     [Header("*Debug Stage W & H")]
     public int StageWidth = 11;
     public int StageHeight = 11;
+
+    // Get(Spawn) Enemies
+    List<Enemy_Basic> enemies = new List<Enemy_Basic>();
 
     public Vector2 PlayerPosition { get; private set; }
 
     void Start()
     {
         playerBasic = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerBasic>();
-        playerBasic.OnMove += SetPlayerPosition;
+        playerBasic.OnMove += OnPlayerMove;
         StartCoroutine(SetStage());
+
+        // Debug
+        /*foreach(GameObject g in GameObject.FindGameObjectsWithTag("Enemies"))
+        {
+            enemies.Add(g.GetComponent<Enemy_Basic>());
+        }*/
     }
 
     // Update is called once per frame
@@ -25,10 +33,14 @@ public class StageManager : MonoBehaviour
         
     }
 
-    void SetPlayerPosition()
+    void OnPlayerMove()
     {
         PlayerPosition = playerBasic._Positon;
-        Debug.Log(PlayerPosition);
+
+        for(int i = 0; i < enemies.Count; i++)
+        {
+
+        }
     }
 
     IEnumerator SetStage()

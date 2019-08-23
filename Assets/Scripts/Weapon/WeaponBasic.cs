@@ -22,8 +22,17 @@ public class WeaponBasic : MonoBehaviour
         
     }
 
-    public virtual void Shoot()
+    public virtual bool Shoot()
     {
-
+        RoundCount++;
+        if(RoundCount >= _RoundCountValue)
+        {
+            RoundCount = 0;
+        }
+        else
+        {
+            return false;
+        }
+        return true;
     }
 }
